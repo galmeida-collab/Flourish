@@ -13,7 +13,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module A: Church Connection & Involvement',
+        module: 'Church Connection & Involvement',
         desc: 'Tell us about your community integration and active involvement.',
         questions: [
             { id: 'q1', label: 'Are you currently connected to a small group, home group, or Bible study at our church?', type: 'radio', options: ['Yes', 'No'], triggersBranch: 'sg' },
@@ -26,7 +26,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module B: Core Beliefs & Attitudes',
+        module: 'Core Beliefs & Attitudes',
         desc: 'Please indicate how strongly you agree with the following foundational statements.',
         questions: [
             { id: 'q8', label: 'I believe nothing I do or have done can earn my salvation; it is purely by grace.', type: 'likert' },
@@ -44,7 +44,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module C: Personal Spiritual Practices & Scripture',
+        module: 'Personal Spiritual Practices & Scripture',
         desc: 'Evaluate your personal weekly habits and private spiritual disciplines.',
         questions: [
             { id: 'q20', label: 'In a typical week, how many days do you personally read, study, or reflect on the Bible?', type: 'radio', options: ['0 days', '1 to 2 days', '3 days', '4 to 5 days (Power of 4)', '6 to 7 days'] },
@@ -64,7 +64,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module D: Relational Outflow & Evangelism',
+        module: 'Relational Outflow & Evangelism',
         desc: 'How your faith expresses itself outwardly in community and relational witness.',
         questions: [
             { id: 'q34', label: 'How often do you serve those in need outside of formal church programs (e.g., helping neighbors)?', type: 'freq' },
@@ -78,7 +78,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module E: Barriers, Stalls & Church Expectations',
+        module: 'Barriers, Stalls & Church Expectations',
         desc: 'Reflecting on friction points, momentum pace, and church expectations.',
         questions: [
             { id: 'q42', label: 'Which statement best describes your current spiritual growth right now?', type: 'radio', options: ['Rapid growth', 'Reasonable / steady growth', 'Content', 'I have stalled spiritually (feel stuck)'] },
