@@ -7,7 +7,7 @@ const surveyModules = [
             { id: 'userName', label: 'Full Name', type: 'text', placeholder: 'Enter your full name' },
             { id: 'userEmail', label: 'Email Address', type: 'email', placeholder: 'Enter your email address' },
             { id: 'userAge', label: 'Age Group', type: 'radio', options: ['18–24', '25–34', '35–44', '45–54', '55–64', '65+'] },
-            { id: 'userGender', label: 'Gender', type: 'radio', options: ['Male', 'Female', ] },
+            { id: 'userGender', label: 'Gender', type: 'radio', options: ['Male', 'Female'] },
             { id: 'userTenure', label: 'How long have you been regularly attending our church?', type: 'radio', options: ['Less than 1 year', '1–3 years', '3–5 years', '5+ years'] },
             { id: 'userAttend', label: 'How frequently do you attend weekend worship services?', type: 'radio', options: ['Weekly / Almost weekly', '2–3 times a month', 'Rarely'] }
         ]
@@ -100,7 +100,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Real Talk: Everyday Hurdles, Distreactions & Obstacles',
+        module: 'Real Talk: Everyday Hurdles, Distractions & Obstacles',
         desc: 'Looking honestly at personal struggles, habits, or emotional burdens that might be slowing you down or making you feel stuck.',
         questions: [
             { id: 'q53', label: 'Prioritizing Growth over Distractions: Do you struggle with prioritizing your spiritual growth over distractions like television, internet, social media, or shopping?', type: 'likert' },
@@ -326,37 +326,38 @@ function finalizeAssessment() {
     renderIndividualReport(userRecord);
 }
 
+// --- UPDATED REPORT RENDERER HOOKED TO reportEngine.js ---
 function renderIndividualReport(rec) {
     const container = document.getElementById('survey-card-content');
     document.getElementById('progress-container').classList.add('hidden');
     document.getElementById('survey-nav').classList.add('hidden');
 
+    const userProfile = {
+        name: rec.name,
+        currentStage: rec.segment,
+        growthPace: formData['q2'] || 'Moderate',
+        scriptureEngagementDaysPerWeek: formData['q21'] === '4+ days (Power of 4 Benchmark)' ? 5 : 2,
+        sectionScores: { beliefs: 75, dailyHabits: 50, outwardAction: 50, churchConnection: 60 },
+        flaggedObstacles: [
+            formData['q3'] === 'Yes' ? 'Spiritually Stalled or Stuck' : null,
+            formData['q54'] === 'Yes' ? 'Unhealed Emotional Issues or Hurts' : null,
+            formData['q55'] === 'Yes' ? 'Addictions or Unhealthy Coping Habits' : null,
+            formData['q56'] === 'Yes' ? 'Inappropriate Relationships' : null
+        ].filter(Boolean)
+    };
+
+    const generatedReportHtml = generateNextStepReport(userProfile);
+
     container.innerHTML = `
-        <div class="text-center pb-6 border-b border-slate-100">
+        <div class="text-center pb-6 border-b border-slate-100 mb-6">
             <span class="inline-block p-3 bg-flourish-50 text-flourish-600 rounded-2xl mb-2 text-2xl font-bold">&#10003;</span>
             <h2 class="text-2xl font-black text-slate-900">Your Flourish Assessment Report</h2>
             <p class="text-xs text-slate-500 mt-1">Prepared confidentially for ${rec.name}</p>
         </div>
 
-        <div class="my-6 p-6 bg-slate-50 rounded-2xl border border-slate-200/80">
-            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1">Your Continuum Stage</div>
-            <div class="text-3xl font-black text-flourish-700">${rec.segment}</div>
-            <div class="text-xs text-slate-600 mt-1 font-medium">Growth Transition: ${rec.transition}</div>
-            ${rec.isStalled ? '<div class="mt-3 inline-block bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-lg font-bold">Stalled Override Active — Reengagement Track Recommended</div>' : ''}
-        </div>
+        ${generatedReportHtml}
 
-        <div class="space-y-4 mb-8">
-            <h3 class="font-bold text-slate-900 text-sm">Tailored Next Steps for Your Journey:</h3>
-            <ul class="text-xs text-slate-600 space-y-2.5 list-disc pl-5 leading-relaxed">
-                ${rec.segment === 'Exploring Christ' ? '<li>Engage with foundational Christian basics through our introductory seeker community.</li><li>Focus on reading the Gospel of John over the next 30 days.</li>' : ''}
-                ${rec.segment === 'Growing in Christ' ? '<li>Establish a consistent 4+ day weekly Scripture reading rhythm.</li><li>Anchor your community life by plugging into a small group.</li>' : ''}
-                ${rec.segment === 'Close to Christ' ? '<li>Deepen your prayer life by incorporating weekly periods of listening solitude.</li><li>Initiate intentional spiritual conversations with individuals far from God.</li>' : ''}
-                ${rec.segment === 'Christ-Centered' ? '<li>Transition into mentoring newer believers and leading external community outreach.</li><li>Embrace a daily posture of personal resurrender.</li>' : ''}
-                ${rec.isStalled ? '<li><strong>Reengagement Focus:</strong> Data shows growth stalls when daily habits lapse. Reestablish a basic 15-minute daily prayer and Scripture habit.</li>' : ''}
-            </ul>
-        </div>
-
-        <div class="flex space-x-3">
+        <div class="flex space-x-3 mt-8 pt-6 border-t border-slate-100">
             <button onclick="currentModuleIdx=0; formData={}; renderModule();" class="flex-1 py-3 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 transition">Retake Assessment</button>
             <button onclick="switchView('dashboard')" class="flex-1 py-3 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition shadow-md">View Leadership Dashboard</button>
         </div>
