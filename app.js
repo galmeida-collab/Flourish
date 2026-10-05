@@ -198,57 +198,35 @@ function renderModule() {
         html += `<div class="p-4 bg-slate-50/50 rounded-2xl border border-slate-200/60">
             <label class="block text-sm font-semibold text-slate-800 mb-2.5">${q.label}</label>`;
 
+        // --- UNIFORM VERTICAL LAYOUT CONTROLLER ---
         if (q.type === 'text' || q.type === 'email') {
             const val = formData[q.id] || '';
             html += `<input type="${q.type}" value="${val}" oninput="saveInput('${q.id}', this.value)" placeholder="${q.placeholder || ''}" class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-flourish-600 focus:outline-none">`;
-        } else if (q.type === 'radio') {
-            html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">`;
-            q.options.forEach(opt => {
-                const checked = formData[q.id] === opt ? 'checked' : '';
-                html += `<label class="flex items-center space-x-3 p-3 bg-white rounded-xl border border-slate-200 hover:border-flourish-600 cursor-pointer text-xs font-medium transition">
-                    <input type="radio" name="${q.id}" value="${opt}" ${checked} onchange="saveInput('${q.id}', '${opt}')" class="text-flourish-600 focus:ring-flourish-500">
-                    <span>${opt}</span>
-                </label>`;
-            });
-            html += `</div>`;
-        } else if (q.type === 'likert') {
-            html += `<div class="grid grid-cols-2 sm:grid-cols-3 gap-2">`;
-            likertOptions.forEach(opt => {
-                const checked = formData[q.id] === opt ? 'checked' : '';
-                html += `<label class="flex items-center space-x-2 p-2.5 bg-white rounded-xl border border-slate-200 hover:border-flourish-600 cursor-pointer text-[11px] font-medium transition">
-                    <input type="radio" name="${q.id}" value="${opt}" ${checked} onchange="saveInput('${q.id}', '${opt}')" class="text-flourish-600 focus:ring-flourish-500">
-                    <span>${opt}</span>
-                </label>`;
-            });
-            html += `</div>`;
-        } else if (q.type === 'freq') {
-            html += `<div class="grid grid-cols-2 sm:grid-cols-5 gap-2">`;
-            freqOptions.forEach(opt => {
-                const checked = formData[q.id] === opt ? 'checked' : '';
-                html += `<label class="flex items-center space-x-2 p-2.5 bg-white rounded-xl border border-slate-200 hover:border-flourish-600 cursor-pointer text-[11px] font-medium transition">
-                    <input type="radio" name="${q.id}" value="${opt}" ${checked} onchange="saveInput('${q.id}', '${opt}')" class="text-flourish-600 focus:ring-flourish-500">
-                    <span>${opt}</span>
-                </label>`;
-            });
-            html += `</div>`;
-        } else if (q.type === 'scale16') {
-            let scaleLabels = ['Extremely dissatisfied', 'Dissatisfied', 'Somewhat dissatisfied', 'Somewhat satisfied', 'Satisfied', 'Extremely satisfied'];
+        } else {
+            // Forces all choice types (radio, likert, freq, scale16) into a clean, uniform vertical list
+            let optionsList = [];
+            
+            if (q.type === 'radio') {
+                optionsList = q.options.map(opt => ({ val: opt, label: opt }));
+            } else if (q.type === 'likert') {
+                optionsList = likertOptions.map(opt => ({ val: opt, label: opt }));
+            } else if (q.type === 'freq') {
+                optionsList = freqOptions.map(opt => ({ val: opt, label: opt }));
+            } else if (q.type === 'scale16') {
+                let scaleLabels = ['Extremely dissatisfied', 'Dissatisfied', 'Somewhat dissatisfied', 'Somewhat satisfied', 'Satisfied', 'Extremely satisfied'];
+                optionsList = scaleLabels.map((label, index) => ({ val: index + 1, label: `<strong class="text-slate-400 mr-1">${index + 1}.</strong> ${label}` }));
+            }
+
             html += `<div class="space-y-2">`;
-            scaleLabels.forEach((label, index) => {
-                const val = index + 1;
-                const checked = formData[q.id] == val ? 'checked' : '';
+            optionsList.forEach(item => {
+                const checked = formData[q.id] == item.val ? 'checked' : '';
                 html += `<label class="flex items-center space-x-3 p-3 bg-white rounded-xl border border-slate-200 hover:border-flourish-600 cursor-pointer text-xs font-medium transition">
-                    <input type="radio" name="${q.id}" value="${val}" ${checked} onchange="saveInput('${q.id}', ${val})" class="text-flourish-600 focus:ring-flourish-500">
-                    <span><strong class="text-slate-400 mr-1">${val}.</strong> ${label}</span>
+                    <input type="radio" name="${q.id}" value="${item.val}" ${checked} onchange="saveInput('${q.id}', '${item.val}')" class="text-flourish-600 focus:ring-flourish-500">
+                    <span>${item.label}</span>
                 </label>`;
             });
             html += `</div>`;
         }
-        html += `</div>`;
-    });
-    html += `</div>`;
-    content.innerHTML = html;
-}
 
 function saveInput(id, val) {
     formData[id] = val;
