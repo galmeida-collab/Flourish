@@ -134,6 +134,22 @@
         &copy; 2026 The Flourish Assessment Framework. Secure Longitudinal Discipleship Engine.
     </footer>
 
+<!-- Admin Authentication Modal -->
+    <div id="admin-login-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-slate-900 text-base">Leadership Access Required</h3>
+                <button onclick="closeAdminLogin()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">&times;</button>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Please enter the administrative passcode to view collective dashboard analytics.</p>
+            <form onsubmit="verifyAdminPasscode(event)" class="space-y-3">
+                <input type="password" id="admin-pass-input" placeholder="Enter admin passcode" required class="w-full px-4 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-flourish-600 focus:outline-none">
+                <div id="admin-error-msg" class="text-xs text-red-600 hidden font-medium">Incorrect passcode. Please try again.</div>
+                <button type="submit" class="w-full py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition shadow-sm">Authorize & Enter</button>
+            </form>
+        </div>
+    </div>
+    
     <!-- App Logic Script -->
     <script src="app.js"></script>
 </body>
