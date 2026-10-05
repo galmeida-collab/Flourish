@@ -22,7 +22,7 @@ const surveyModules = [
                 'I feel really close to Christ and depend on him daily for guidance.',
                 'God is all I need in my life; he is enough, and everything I do is a reflection of Christ.'
             ]},
-            { id: 'q2', label: 'How would you best describe your current pace of spiritual growth?', type: 'radio', options: ['Rapid', 'Moderate', 'Slow but steady', 'Stalled', 'Content/Inactive'] },
+            { id: 'q2', label: 'How would you best describe your current pace of spiritual growth?', type: 'radio', options: ['Rapid', 'Moderate', 'Slow but steady', 'Stalled', 'Content'] },
             { id: 'q3', label: 'Do you currently feel spiritually "stuck" or derailed in your spiritual journey?', type: 'radio', options: ['Yes', 'No'], triggersStall: true },
             { id: 'q4', label: 'To what extent do you feel your love for God is actively increasing over time?', type: 'likert' },
             { id: 'q5', label: 'To what extent do you feel your love for other people (both people you know and strangers) is actively increasing?', type: 'likert' },
