@@ -7,7 +7,7 @@ const surveyModules = [
             { id: 'userName', label: 'Full Name', type: 'text', placeholder: 'Enter your full name' },
             { id: 'userEmail', label: 'Email Address', type: 'email', placeholder: 'Enter your email address' },
             { id: 'userAge', label: 'Age Group', type: 'radio', options: ['18–24', '25–34', '35–44', '45–54', '55–64', '65+'] },
-            { id: 'userGender', label: 'Gender', type: 'radio', options: ['Male', 'Female', 'Prefer not to say'] },
+            { id: 'userGender', label: 'Gender', type: 'radio', options: ['Male', 'Female', ] },
             { id: 'userTenure', label: 'How long have you been regularly attending our church?', type: 'radio', options: ['Less than 1 year', '1–3 years', '3–5 years', '5+ years'] },
             { id: 'userAttend', label: 'How frequently do you attend weekend worship services?', type: 'radio', options: ['Weekly / Almost weekly', '2–3 times a month', 'Rarely'] }
         ]
