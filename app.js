@@ -9,7 +9,7 @@ const surveyModules = [
             { id: 'userAge', label: 'Age Group', type: 'radio', options: ['18–24', '25–34', '35–44', '45–54', '55–64', '65+'] },
             { id: 'userGender', label: 'Gender', type: 'radio', options: ['Male', 'Female'] },
             { id: 'userTenure', label: 'How long have you been regularly attending our church?', type: 'radio', options: ['Less than 1 year', '1–3 years', '3–5 years', '5+ years'] },
-            { id: 'userAttend', label: '{ id: 'q43', label: 'Weekend Service Attendance: How frequently do you attend weekend worship services at your church?', type: 'radio', options: ['3–4 times a month', '1–2 times a month', 'Rarely'] }
+            { id: 'userAttend', label: 'Weekend Service Attendance: How frequently do you attend weekend worship services at your church?', type: 'radio', options: ['3–4 times a month', '1–2 times a month', 'Rarely'] }
         ]
     },
     {
