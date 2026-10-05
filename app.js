@@ -1,4 +1,4 @@
-// --- 1. QUESTIONNAIRE ARCHITECTURE (56 Fields Total: 6 Admin + 50 Core) ---
+// --- 1. QUESTIONNAIRE ARCHITECTURE (Admin Metadata + 60 Core Questions) ---
 const surveyModules = [
     {
         module: 'Administrative Demographics',
@@ -13,83 +13,104 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Church Connection & Involvement',
-        desc: 'Tell us about your community integration and active involvement.',
+        module: 'Module 1: Where You Are Right Now on Your Journey',
+        desc: 'An open look at where you currently feel you stand with God and how fast or slow your personal journey feels.',
         questions: [
-            { id: 'q1', label: 'Are you currently connected to a small group, home group, or Bible study at our church?', type: 'radio', options: ['Yes', 'No'], triggersBranch: 'sg' },
-            { id: 'q2', label: 'How often does your small group typically meet?', type: 'radio', options: ['Weekly', 'Bi-weekly', 'Monthly', 'Irregularly'], condition: { parent: 'q1', value: 'Yes' } },
-            { id: 'q3', label: 'My small group encourages spiritual accountability and honesty about life\'s struggles.', type: 'likert', condition: { parent: 'q1', value: 'Yes' } },
-            { id: 'q4', label: 'To what extent has your group helped you understand the Bible in greater depth?', type: 'radio', options: ['High Impact', 'Moderate Impact', 'Low/No Impact'], condition: { parent: 'q1', value: 'Yes' } },
-            { id: 'q5', label: 'Do you currently serve in a regular ministry capacity within our church?', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q6', label: 'How clearly do you feel our church has communicated a next-step pathway for your personal growth?', type: 'scale16' },
-            { id: 'q7', label: 'Overall, how satisfied are you with how our church helps you grow spiritually?', type: 'scale16' }
+            { id: 'q1', label: 'Which statement best describes your current relationship with Jesus Christ?', type: 'radio', options: [
+                'I believe in God, but I am not sure about Christ, and faith is not a significant part of my life.',
+                'I believe in Jesus, and I am working on what it means to get to know him.',
+                'I feel really close to Christ and depend on him daily for guidance.',
+                'God is all I need in my life; he is enough, and everything I do is a reflection of Christ.'
+            ]},
+            { id: 'q2', label: 'How would you best describe your current pace of spiritual growth?', type: 'radio', options: ['Rapid', 'Moderate', 'Slow but steady', 'Stalled', 'Content/Inactive'] },
+            { id: 'q3', label: 'Do you currently feel spiritually "stuck" or derailed in your spiritual journey?', type: 'radio', options: ['Yes', 'No'], triggersStall: true },
+            { id: 'q4', label: 'To what extent do you feel your love for God is actively increasing over time?', type: 'likert' },
+            { id: 'q5', label: 'To what extent do you feel your love for other people (both people you know and strangers) is actively increasing?', type: 'likert' },
+            { id: 'q6', label: 'Do you feel that you are becoming less like your former self and more like Christ in your thoughts, words, and deeds?', type: 'likert' }
         ]
     },
     {
-        module: 'Core Beliefs & Attitudes',
-        desc: 'Please indicate how strongly you agree with the following foundational statements.',
+        module: 'Module 2: What You Believe About God & Life',
+        desc: 'Exploring your core convictions about God, Jesus, the Bible, and how those views shape your choices.',
         questions: [
-            { id: 'q8', label: 'I believe nothing I do or have done can earn my salvation; it is purely by grace.', type: 'likert' },
-            { id: 'q9', label: 'I believe the God of the Bible is the one true God—Father, Son, and Holy Spirit.', type: 'likert' },
-            { id: 'q10', label: 'I believe God is actively involved in my day-to-day life.', type: 'likert' },
-            { id: 'q11', label: 'I desire Jesus to be first in my life above all other priorities.', type: 'likert' },
-            { id: 'q12', label: 'I believe the Bible has decisive authority over what I say and do.', type: 'likert' },
-            { id: 'q13', label: 'I exist primarily to know, love, and serve God.', type: 'likert' },
-            { id: 'q14', label: 'I am willing to risk everything that is important in my life for Jesus Christ.', type: 'likert' },
-            { id: 'q15', label: 'I believe a Christian should live a sacrificial life not driven by the pursuit of material things.', type: 'likert' },
-            { id: 'q16', label: 'I love God more than anything else in the world.', type: 'likert' },
-            { id: 'q17', label: 'I have a deep, genuine love for people—both those I know and those I don\'t know.', type: 'likert' },
-            { id: 'q18', label: 'I believe God is in absolute control, even during unexpected personal or global crises.', type: 'likert' },
-            { id: 'q19', label: 'I believe that my eternal destiny is entirely dependent on my relationship with Jesus Christ.', type: 'likert' }
+            { id: 'q7', label: 'Salvation by Grace: Do you believe that nothing you do or have done can earn your salvation; it is purely by grace?', type: 'likert' },
+            { id: 'q8', label: 'The Trinity: Do you believe that the God of the Bible is the one true God—Father, Son, and Holy Spirit?', type: 'likert' },
+            { id: 'q9', label: 'Personal God: Do you believe that God is actively involved in your daily life?', type: 'likert' },
+            { id: 'q10', label: 'Christ is First: Is it your core desire for Jesus Christ to be first in every area of your life?', type: 'likert' },
+            { id: 'q11', label: 'Authority of the Bible: Do you believe the Bible has decisive authority over what you say and do?', type: 'likert' },
+            { id: 'q12', label: 'Identity in Christ: Do you believe that you exist primarily to know, love, and serve God?', type: 'likert' },
+            { id: 'q13', label: 'Giving Away My Life: Are you willing to risk everything that is important in my life for Jesus Christ?', type: 'likert' },
+            { id: 'q14', label: 'Stewardship & Material World: Do you believe a Christian should live a sacrificial life that is not driven by the pursuit of material things, power, or status?', type: 'likert' },
+            { id: 'q15', label: 'Dependence on God: Do you deeply agree with the statement: "Without God\'s help, I know I cannot make it on my own"?', type: 'likert' },
+            { id: 'q16', label: 'Gratitude: Even during difficult seasons or hard days, are you overwhelmed with gratitude for God\'s blessings?', type: 'likert' },
+            { id: 'q17', label: 'Spiritual Gifts: Do you clearly know and actively use your spiritual gifts to fulfill God’s purposes?', type: 'likert' },
+            { id: 'q18', label: 'Life Ownership: In your decision-making, do you let Jesus "drive" your life choices rather than keeping yourself in the driver\'s seat?', type: 'likert' }
         ]
     },
     {
-        module: 'Personal Spiritual Practices & Scripture',
-        desc: 'Evaluate your personal weekly habits and private spiritual disciplines.',
+        module: 'Module 3: Personal Habits & Daily Connection',
+        desc: 'Looking at private routines—like reading the Bible, praying, and quiet time—that help you connect with God on your own.',
         questions: [
-            { id: 'q20', label: 'In a typical week, how many days do you personally read, study, or reflect on the Bible?', type: 'radio', options: ['0 days', '1 to 2 days', '3 days', '4 to 5 days (Power of 4)', '6 to 7 days'] },
-            { id: 'q21', label: 'On the days that you engage with Scripture, how much time do you typically spend in a single sitting?', type: 'radio', options: ['5 mins or less', '6 to 15 mins', '16 to 30 mins', '31 mins or more'] },
-            { id: 'q22', label: 'What primary format do you use to engage with Scripture?', type: 'radio', options: ['Physical Bible', 'Digital Bible App', 'Audio Bible', 'Devotional Book'] },
-            { id: 'q23', label: 'When you read the Bible, how often do you take notes, journal, or actively apply it to a life situation?', type: 'freq' },
-            { id: 'q24', label: 'I reflect on the meaning of Scripture in my daily life.', type: 'freq' },
-            { id: 'q25', label: 'I pray to seek guidance for my life.', type: 'freq' },
-            { id: 'q26', label: 'I pray to confess sins and realign my heart with God.', type: 'freq' },
-            { id: 'q27', label: 'I set aside dedicated time for solitude and listening to God.', type: 'freq' },
-            { id: 'q28', label: 'My first priority in financial spending is to support God\'s work (tithing 10% or more).', type: 'radio', options: ['Yes consistently', 'Sometimes / Partially', 'Not currently'] },
-            { id: 'q29', label: 'I utilize digital tools (apps, devotionals, podcasts) to aid my spiritual growth during the week.', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q30', label: 'I meet with or talk to a close friend, confidant, or mentor who helps me grow spiritually.', type: 'radio', options: ['Weekly', 'Monthly', 'Occasionally', 'Never'] },
-            { id: 'q31', label: 'I feel equipped to handle everyday life decisions using biblical principles.', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q32', label: 'I intentionally practice private or family worship outside of weekend services.', type: 'freq' },
-            { id: 'q33', label: 'I keep a journal to track how God is working in my life or record answered prayers.', type: 'freq' }
+            { id: 'q19', label: 'Bible Reading Frequency: How often do you read the Bible on your own?', type: 'radio', options: ['Daily', 'Several times a week', 'Monthly', 'Rarely', 'Never'] },
+            { id: 'q20', label: 'Reflection on Scripture: How frequently do you reflect on the personal meaning of Scripture to find direction for your daily life?', type: 'freq' },
+            { id: 'q21', label: 'Scripture Engagement Impact: How many days per week do you interact with (read, reflect on, or respond to) the Bible?', type: 'radio', options: ['0 days', '1–3 days', '4+ days (Power of 4 Benchmark)'] },
+            { id: 'q22', label: 'Scripture Memorization: How often do you memorize passages or verses of Scripture?', type: 'freq' },
+            { id: 'q23', label: 'Prayer for Guidance: How often do you pray to seek God\'s guidance for specific decisions in your life?', type: 'freq' },
+            { id: 'q24', label: 'Prayer of Confession: How regularly do you pray to confess your sins and seek forgiveness?', type: 'freq' },
+            { id: 'q25', label: 'Nature of Prayer: Is your prayer life characterized more by occasional crisis requests, daily structured prayers, or a running dialogue with God throughout the day?', type: 'radio', options: ['Occasional crisis requests', 'Daily structured prayers', 'Running dialogue throughout the day'] },
+            { id: 'q26', label: 'Solitude & Listening: How frequently do you set aside dedicated time for solitude to quiet yourself and listen to God?', type: 'freq' },
+            { id: 'q27', label: 'Journaling: How often do you maintain a spiritual journal to process your walk with God?', type: 'freq' },
+            { id: 'q28', label: 'Tithing Commitment: Do you currently give 10 percent or more of your income to support your church?', type: 'radio', options: ['Yes consistently', 'Sometimes / Partially', 'Not currently'] },
+            { id: 'q29', label: 'Financial Priority: Is supporting God\'s work your top financial priority when managing your personal finances?', type: 'radio', options: ['Yes', 'Partially', 'No'] },
+            { id: 'q30', label: 'Motivation for Disciplines: Do you engage in spiritual practices out of personal desire and delight rather than obligation or duty?', type: 'likert' }
         ]
     },
     {
-        module: 'Relational Outflow & Evangelism',
-        desc: 'How your faith expresses itself outwardly in community and relational witness.',
+        module: 'Module 4: Loving Others & Living It Out',
+        desc: 'How your faith translates into practical kindness, serving people in need, building supportive friendships, and sharing your story.',
         questions: [
-            { id: 'q34', label: 'How often do you serve those in need outside of formal church programs (e.g., helping neighbors)?', type: 'freq' },
-            { id: 'q35', label: 'In the past year, approximately how many meaningful spiritual conversations have you had with people who do not know Christ?', type: 'radio', options: ['6+ times', '3 to 5 times', '1 to 2 times', 'None'] },
-            { id: 'q36', label: 'In the past year, how many times have you intentionally invited a non-Christian friend or relative to church?', type: 'radio', options: ['6+ times', '3 to 5 times', '1 to 2 times', 'None'] },
-            { id: 'q37', label: 'Besides a small group, do you have a close friend or spiritual confidant outside your household with whom you discuss struggles monthly?', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q38', label: 'How effective is your current Christian community at helping you navigate personal crises or emotional pain?', type: 'scale16' },
-            { id: 'q39', label: 'I actively look for opportunities to mentor or help newer believers grow in their faith.', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q40', label: 'I actively support missions, global causes, or systematic mercy ministries with my time or resources.', type: 'freq' },
-            { id: 'q41', label: 'When I experience relational conflict with others, I actively pursue biblical reconciliation and forgiveness.', type: 'radio', options: ['Always', 'Usually', 'Sometimes', 'Rarely'] }
+            { id: 'q31', label: 'Evangelistic Conversations: In the past year, approximately how many meaningful spiritual conversations have you had with non-Christians?', type: 'radio', options: ['None', '1–2', '3–5', '6 or more'] },
+            { id: 'q32', label: 'Church Invitations: In the past year, how many non-Christians have you invited to attend church with you?', type: 'radio', options: ['None', '1–2', '3–5', '6 or more'] },
+            { id: 'q33', label: 'Equipped to Share: Do you feel fully equipped to share your Christian faith with non-believers?', type: 'likert' },
+            { id: 'q34', label: 'Serving the Needy Independently: How often do you serve people in need on your own (outside of organized church events)?', type: 'radio', options: ['Weekly', 'Monthly', 'Rarely', 'Never'] },
+            { id: 'q35', label: 'Community Service: How frequently do you give away your time to serve and help people in your local community?', type: 'freq' },
+            { id: 'q36', label: 'Compassion for the Vulnerable: Do you strongly agree that God specifically calls you to be directly involved in the lives of the poor and suffering?', type: 'likert' },
+            { id: 'q37', label: 'Spiritual Relationships: Do you have close relationships with other Christians who actively influence your life and faith?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q38', label: 'Spiritual Accountability: Do you have spiritual friends who hold you accountable for your actions and speak truth to you?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q39', label: 'Spiritual Mentors: How frequently do you meet with or talk to a spiritual mentor or confidant?', type: 'radio', options: ['Weekly', 'Monthly', 'Occasionally', 'Never'] },
+            { id: 'q40', label: 'Mentoring Others: Are you actively committed to mentoring or helping other people grow spiritually?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q41', label: 'Discipling Others: How regularly do you invest in discipling another person in their Christian walk?', type: 'freq' },
+            { id: 'q42', label: 'Faith Risk-Taking: Are you willing to take visible, public risks with your reputation or resources for the sake of Christ?', type: 'likert' }
         ]
     },
     {
-        module: 'Barriers, Stalls & Church Expectations',
-        desc: 'Reflecting on friction points, momentum pace, and church expectations.',
+        module: 'Module 5: Your Experience with a Church Community',
+        desc: 'Evaluating your participation in a local church and how well that community supports and encourages your growth.',
         questions: [
-            { id: 'q42', label: 'Which statement best describes your current spiritual growth right now?', type: 'radio', options: ['Rapid growth', 'Reasonable / steady growth', 'Content', 'I have stalled spiritually (feel stuck)'] },
-            { id: 'q43', label: 'Do you feel like you are currently coasting on past spiritual momentum rather than actively growing?', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q44', label: 'If you have felt stalled, what do you believe contributed most?', type: 'radio', options: ['Not prioritizing spiritual habits', 'Busy schedule conflicts', 'Emotional burnout or stress', 'Personal struggles or addictions', 'None / Not Applicable'] },
-            { id: 'q45', label: 'How important is it to you that our weekend services provide in-depth study of the Bible and intellectual challenge?', type: 'scale16' },
-            { id: 'q46', label: 'How satisfied are you with the depth of Bible teaching and intellectual challenge in our weekend services?', type: 'scale16' },
-            { id: 'q47', label: 'Do you ever consider leaving our church because your spiritual growth needs are unmet?', type: 'radio', options: ['Never', 'Occasionally considering', 'Likely to leave'] },
-            { id: 'q48', label: 'When I encounter difficult passages in the Bible, I feel safe expressing my doubts and finding answers here.', type: 'scale16' },
-            { id: 'q49', label: 'I currently feel the need for structured pastoral care, marriage counseling, or emotional healing support.', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q50', label: 'In one sentence, what is the single biggest next step you feel God is calling you to take right now?', type: 'text', placeholder: 'Enter your personal growth goal...' }
+            { id: 'q43', label: 'Weekend Service Attendance: How frequently do you attend weekend worship services at your church?', type: 'radio', options: ['3–4 times a month', '1–2 times a month', 'Rarely'] },
+            { id: 'q44', label: 'Ministry Serving: How often do you serve in a specific church ministry or volunteer role?', type: 'radio', options: ['Weekly', '1–2 times a month', 'Rarely', 'Never'], triggersServing: true },
+            { id: 'q45', label: 'Small Group Engagement: Do you regularly participate in a small group, Sunday school, or Bible study through your church?', type: 'radio', options: ['Yes', 'No'], triggersSG: true },
+            { id: 'q46', label: 'Serving Through Church: How often do you participate in church-sponsored community service projects?', type: 'freq' },
+            { id: 'q47', label: 'Adult Education Classes: How frequently do you participate in adult education or training classes focused on spiritual topics?', type: 'freq' },
+            { id: 'q48', label: 'Additional Worship Services: Do you regularly attend additional mid-week teaching or worship services beyond the weekend?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q49', label: 'Church Support for Personal Faith: How satisfied are you with how your church helps you develop a personal relationship with Christ?', type: 'scale16' },
+            { id: 'q50', label: 'Church Support for Bible Knowledge: How satisfied are you with how your church helps you understand the Bible in greater depth?', type: 'scale16' },
+            { id: 'q51', label: 'Spiritual Challenge: Does your church effectively challenge you to take specific next steps in your spiritual growth?', type: 'likert' },
+            { id: 'q52', label: 'Clear Growth Pathway: Does your church provide a clear, understandable pathway to guide your spiritual development?', type: 'likert' }
+        ]
+    },
+    {
+        module: 'Module 6: Everyday Distractions, Hurdles, & Obstacles',
+        desc: 'Looking honestly at personal struggles, habits, or emotional burdens that might be slowing you down or making you feel stuck.',
+        questions: [
+            { id: 'q53', label: 'Prioritizing Growth over Distractions: Do you struggle with prioritizing your spiritual growth over distractions like television, internet, social media, or shopping?', type: 'likert' },
+            { id: 'q54', label: 'Emotional Issues & Hurts: Are unhealed emotional issues, past hurts, or anger currently impeding your spiritual progress?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q55', label: 'Addictions & Unhealthy Habits: Are personal addictions or unhealthy coping behaviors creating a barrier to your relationship with God?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q56', label: 'Inappropriate Relationships: Are you involved in any relationships that pull you away from God or compromise your faith values?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q57', label: 'Gossip & Judgmental Attitudes: Do you struggle with gossip or judgmental attitudes toward other people?', type: 'freq' },
+            { id: 'q58', label: 'Hiding & Isolation: Do you frequently feel like you have to hide what you do or feel from God or others?', type: 'freq' },
+            { id: 'q59', label: 'Bitterness & Destructive Thoughts: How frequently do you experience feelings of bitterness or destructive thoughts about yourself or others?', type: 'freq' },
+            { id: 'q60', label: 'Effective Un-Stalling: When you feel spiritually stalled, do you reconnect with God primarily by increasing personal spiritual practices rather than changing external activities?', type: 'likert' }
         ]
     }
 ];
@@ -104,14 +125,12 @@ let localDatabase = JSON.parse(localStorage.getItem('flourish_survey_db') || '[]
 // --- 2. SECURE VIEW CONTROLLER & ADMIN AUTH ---
 function switchView(viewName) {
     if (viewName === 'dashboard') {
-        // Intercept dashboard access and require admin login prompt
         document.getElementById('admin-login-modal').classList.remove('hidden');
         document.getElementById('admin-pass-input').value = '';
         document.getElementById('admin-error-msg').classList.add('hidden');
         return;
     }
 
-    // Standard Survey View Switch
     const surveyView = document.getElementById('view-survey');
     const dashView = document.getElementById('view-dashboard');
     const sBtn = document.getElementById('nav-survey-btn');
@@ -130,14 +149,11 @@ function closeAdminLogin() {
 function verifyAdminPasscode(event) {
     event.preventDefault();
     const inputVal = document.getElementById('admin-pass-input').value;
-    
-    // Set your secure admin password here (e.g., "churchleadership2026")
     const secureAdminPasscode = "churchleadership2026";
 
     if (inputVal === secureAdminPasscode) {
         closeAdminLogin();
         
-        // Unlock Dashboard View
         const surveyView = document.getElementById('view-survey');
         const dashView = document.getElementById('view-dashboard');
         const sBtn = document.getElementById('nav-survey-btn');
@@ -181,10 +197,6 @@ function renderModule() {
     `;
 
     mod.questions.forEach((q) => {
-        if (q.condition && formData[q.condition.parent] !== q.condition.value) {
-            return; 
-        }
-
         html += `<div class="p-4 bg-slate-50/50 rounded-2xl border border-slate-200/60">
             <label class="block text-sm font-semibold text-slate-800 mb-2.5">${q.label}</label>`;
 
@@ -196,7 +208,7 @@ function renderModule() {
             q.options.forEach(opt => {
                 const checked = formData[q.id] === opt ? 'checked' : '';
                 html += `<label class="flex items-center space-x-3 p-3 bg-white rounded-xl border border-slate-200 hover:border-flourish-600 cursor-pointer text-xs font-medium transition">
-                    <input type="radio" name="${q.id}" value="${opt}" ${checked} onchange="saveInput('${q.id}', '${opt}'); renderModule();" class="text-flourish-600 focus:ring-flourish-500">
+                    <input type="radio" name="${q.id}" value="${opt}" ${checked} onchange="saveInput('${q.id}', '${opt}')" class="text-flourish-600 focus:ring-flourish-500">
                     <span>${opt}</span>
                 </label>`;
             });
@@ -222,13 +234,7 @@ function renderModule() {
             });
             html += `</div>`;
         } else if (q.type === 'scale16') {
-            let scaleLabels = ['Extremely low', 'Low', 'Slightly low', 'Slightly high', 'High', 'Extremely high'];
-            if (q.id === 'q6') { scaleLabels = ['Not at all clear', 'Slightly clear', 'Moderately clear', 'Mostly clear', 'Very clear', 'Extremely clear']; } 
-            else if (q.id === 'q7' || q.id === 'q46') { scaleLabels = ['Extremely dissatisfied', 'Dissatisfied', 'Somewhat dissatisfied', 'Somewhat satisfied', 'Satisfied', 'Extremely satisfied']; } 
-            else if (q.id === 'q38') { scaleLabels = ['Not at all effective', 'Slightly effective', 'Moderately effective', 'Mostly effective', 'Very effective', 'Extremely effective']; } 
-            else if (q.id === 'q45') { scaleLabels = ['Not important', 'Slightly important', 'Moderately important', 'Important', 'Very important', 'Critical']; } 
-            else if (q.id === 'q48') { scaleLabels = ['Not at all safe', 'Slightly safe', 'Moderately safe', 'Mostly safe', 'Very safe', 'Extremely safe']; }
-
+            let scaleLabels = ['Extremely dissatisfied', 'Dissatisfied', 'Somewhat dissatisfied', 'Somewhat satisfied', 'Satisfied', 'Extremely satisfied'];
             html += `<div class="space-y-2">`;
             scaleLabels.forEach((label, index) => {
                 const val = index + 1;
@@ -268,19 +274,20 @@ function handlePrev() {
     }
 }
 
-// --- 4. SCORING ENGINE ---
+// --- 4. SCORING & CONTINUUM ENGINE ---
 function finalizeAssessment() {
     let beliefHits = 0, beliefTotal = 0;
     const highBeliefs = ['Agree', 'Strongly Agree', 'Very Strongly Agree'];
     
-    ['q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19'].forEach(k => {
+    // Module 2 beliefs scoring
+    ['q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18'].forEach(k => {
         beliefTotal++;
         if (highBeliefs.includes(formData[k])) beliefHits++;
     });
     let beliefPct = (beliefHits / beliefTotal) * 100;
 
-    const isStalled = formData['q42'] === 'I have stalled spiritually (feel stuck)';
-    const p4Achieved = formData['q20'] === '4 to 5 days a week (Power of 4)' || formData['q20'] === '6 to 7 days a week';
+    const isStalled = formData['q3'] === 'Yes' || formData['q2'] === 'Stalled';
+    const p4Achieved = formData['q21'] === '4+ days (Power of 4 Benchmark)';
 
     let segment = 'Growing in Christ';
     let transition = 'Intermediate Growth';
@@ -308,8 +315,8 @@ function finalizeAssessment() {
         transition: transition,
         isStalled: isStalled,
         p4Achieved: p4Achieved,
-        inSmallGroup: formData['q1'] === 'Yes',
-        isServing: formData['q5'] === 'Yes',
+        inSmallGroup: formData['q45'] === 'Yes',
+        isServing: formData['q44'] === 'Weekly' || formData['q44'] === '1–2 times a month',
         date: new Date().toISOString().split('T')[0]
     };
 
