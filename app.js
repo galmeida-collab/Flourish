@@ -53,7 +53,7 @@ const surveyModules = [
         questions: [
             { id: 'q19', label: 'Bible Reading Frequency: How often do you read the Bible on your own?', type: 'radio', options: ['Daily', 'Several times a week', 'Monthly', 'Rarely', 'Never'] },
             { id: 'q20', label: 'Reflection on Scripture: How frequently do you reflect on the personal meaning of Scripture to find direction for your daily life?', type: 'freq' },
-            { id: 'q21', label: 'Scripture Engagement Impact: How many days per week do you interact with (read, reflect on, or respond to) the Bible?', type: 'radio', options: ['0 days', '1–3 days', '4+ days (Power of 4 Benchmark)'] },
+            { id: 'q21', label: 'Scripture Engagement Impact: How many days per week do you interact with (read, reflect on, or respond to) the Bible?', type: 'radio', options: ['0 days', '1–3 days', '4+ days'] },
             { id: 'q22', label: 'Scripture Memorization: How often do you memorize passages or verses of Scripture?', type: 'freq' },
             { id: 'q23', label: 'Prayer for Guidance: How often do you pray to seek God\'s guidance for specific decisions in your life?', type: 'freq' },
             { id: 'q24', label: 'Prayer of Confession: How regularly do you pray to confess your sins and seek forgiveness?', type: 'freq' },
