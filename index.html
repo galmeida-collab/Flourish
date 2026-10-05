@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Flourish Assessment & Leadership Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        flourish: { 50: '#f4fbf7', 600: '#059669', 700: '#047857', dark: '#064e3b' }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 shadow-sm sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-flourish-600 text-white p-2 rounded-lg font-bold tracking-wider text-sm">FA</div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 leading-tight">The Flourish Assessment</h1>
+                    <p class="text-xs text-slate-400">Spiritual Growth & Health Initiative</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="switchView('survey')" id="nav-survey-btn" class="px-3 py-1.5 text-xs font-semibold bg-flourish-50 text-flourish-700 rounded-lg transition border border-flourish-600/20">Take Assessment</button>
+                <button onclick="switchView('dashboard')" id="nav-dash-btn" class="px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-lg transition">Leadership Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Application Container -->
+    <main class="max-w-4xl w-full mx-auto p-4 sm:p-6 my-auto flex-grow flex flex-col justify-center">
+        
+        <!-- VIEW 1: THE SURVEY INTERFACE -->
+        <div id="view-survey" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10 transition-all">
+            
+            <!-- Progress Bar -->
+            <div id="progress-container" class="mb-6 hidden">
+                <div class="flex justify-between items-center text-xs font-semibold text-slate-400 mb-2">
+                    <span id="step-category-label">Module 1 of 6</span>
+                    <span id="step-counter">Progress: 0%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                    <div id="progress-bar" class="bg-flourish-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Dynamic Question/Content Card -->
+            <div id="survey-card-content">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div id="survey-nav" class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center hidden">
+                <button id="prev-btn" onclick="handlePrev()" class="px-5 py-2.5 border border-slate-300 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-50 transition shadow-sm">Back</button>
+                <button id="next-btn" onclick="handleNext()" class="px-6 py-2.5 bg-flourish-600 text-white rounded-xl text-sm font-semibold hover:bg-flourish-700 transition shadow-md">Next Module</button>
+            </div>
+        </div>
+
+        <!-- VIEW 2: THE LEADERSHIP DASHBOARD -->
+        <div id="view-dashboard" class="hidden space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-md border border-slate-200">
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-900">Collective Leadership Dashboard</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Aggregated, anonymized church-wide spiritual health analytics.</p>
+                </div>
+                <button onclick="loadSampleData()" class="px-3 py-1.5 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-200 transition">Load Benchmark Data</button>
+            </div>
+
+            <!-- High-Level Summary Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Assessments</div>
+                    <div id="dash-total" class="text-3xl font-black text-slate-900 mt-1">0</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">At-Risk Index (Stalled)</div>
+                    <div id="dash-stalled" class="text-3xl font-black text-amber-600 mt-1">0%</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Power of 4 Adoption</div>
+                    <div id="dash-p4" class="text-3xl font-black text-flourish-600 mt-1">0%</div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Tracking Mode</div>
+                    <div class="text-lg font-bold text-slate-700 mt-2">Longitudinal Active</div>
+                </div>
+            </div>
+
+            <!-- Segment Distribution & Metrics Breakdown -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-sm mb-4">Spiritual Growth Stage Distribution</h3>
+                    <div id="dash-segments" class="space-y-4"></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm mb-2">Leadership Health Insights</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-4">This collective view aggregates individual longitudinal shifts while locking individual identity in the secure pastoral vault.</p>
+                        <div class="space-y-2 text-xs text-slate-700">
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between">
+                                <span>Small Group Engagement Rate:</span>
+                                <span id="dash-sg-rate" class="font-bold">0%</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between">
+                                <span>Active Weekly Ministry Serving:</span>
+                                <span id="dash-serving-rate" class="font-bold">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-400 flex justify-between">
+                        <span>Privacy Guardrails: Active</span>
+                        <span>Encrypted Pastoral Vault: Secure</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-xs text-slate-400">
+        &copy; 2026 The Flourish Assessment Framework. Secure Longitudinal Discipleship Engine.
+    </footer>
+
+    <!-- App Logic Script -->
+    <script src="app.js"></script>
+</body>
+</html>
