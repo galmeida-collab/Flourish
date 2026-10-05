@@ -1,7 +1,7 @@
 // --- 1. QUESTIONNAIRE ARCHITECTURE (Admin Metadata + 60 Core Questions) ---
 const surveyModules = [
     {
-        module: 'Administrative Demographics',
+        module: 'General Information',
         desc: 'Please provide your secure details. Name and email route exclusively to the encrypted pastoral vault; leadership reviews only anonymized macro trends.',
         questions: [
             { id: 'userName', label: 'Full Name', type: 'text', placeholder: 'Enter your full name' },
@@ -13,7 +13,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module 1: Where You Are Right Now on Your Journey',
+        module: 'Start Here: Where You Are Right Now on Your Journey',
         desc: 'An open look at where you currently feel you stand with God and how fast or slow your personal journey feels.',
         questions: [
             { id: 'q1', label: 'Which statement best describes your current relationship with Jesus Christ?', type: 'radio', options: [
@@ -30,7 +30,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module 2: What You Believe About God & Life',
+        module: 'Heart & Mind: What You Believe About God & Life',
         desc: 'Exploring your core convictions about God, Jesus, the Bible, and how those views shape your choices.',
         questions: [
             { id: 'q7', label: 'Salvation by Grace: Do you believe that nothing you do or have done can earn your salvation; it is purely by grace?', type: 'likert' },
@@ -48,7 +48,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module 3: Personal Habits & Daily Connection',
+        module: 'Daily Connections: Personal Habits & Rhythms',
         desc: 'Looking at private routines—like reading the Bible, praying, and quiet time—that help you connect with God on your own.',
         questions: [
             { id: 'q19', label: 'Bible Reading Frequency: How often do you read the Bible on your own?', type: 'radio', options: ['Daily', 'Several times a week', 'Monthly', 'Rarely', 'Never'] },
@@ -66,7 +66,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module 4: Loving Others & Living It Out',
+        module: 'Faith in Action: How You Love & Serve Others',
         desc: 'How your faith translates into practical kindness, serving people in need, building supportive friendships, and sharing your story.',
         questions: [
             { id: 'q31', label: 'Evangelistic Conversations: In the past year, approximately how many meaningful spiritual conversations have you had with non-Christians?', type: 'radio', options: ['None', '1–2', '3–5', '6 or more'] },
@@ -84,7 +84,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module 5: Your Experience with a Church Community',
+        module: 'Community: Your Experience with Church Community',
         desc: 'Evaluating your participation in a local church and how well that community supports and encourages your growth.',
         questions: [
             { id: 'q43', label: 'Weekend Service Attendance: How frequently do you attend weekend worship services at your church?', type: 'radio', options: ['3–4 times a month', '1–2 times a month', 'Rarely'] },
@@ -100,7 +100,7 @@ const surveyModules = [
         ]
     },
     {
-        module: 'Module 6: Everyday Distractions, Hurdles, & Obstacles',
+        module: 'Real Talk: Everyday Hurdles, Distreactions & Obstacles',
         desc: 'Looking honestly at personal struggles, habits, or emotional burdens that might be slowing you down or making you feel stuck.',
         questions: [
             { id: 'q53', label: 'Prioritizing Growth over Distractions: Do you struggle with prioritizing your spiritual growth over distractions like television, internet, social media, or shopping?', type: 'likert' },
