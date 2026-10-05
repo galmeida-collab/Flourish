@@ -9,7 +9,7 @@ const surveyModules = [
             { id: 'userAge', label: 'Age Group', type: 'radio', options: ['18–24', '25–34', '35–44', '45–54', '55–64', '65+'] },
             { id: 'userGender', label: 'Gender', type: 'radio', options: ['Male', 'Female'] },
             { id: 'userTenure', label: 'How long have you been regularly attending our church?', type: 'radio', options: ['Less than 1 year', '1–3 years', '3–5 years', '5+ years'] },
-            { id: 'userAttend', label: 'How frequently do you attend weekend worship services?', type: 'radio', options: ['Weekly / Almost weekly', '2–3 times a month', 'Rarely'] }
+            { id: 'userAttend', label: '{ id: 'q43', label: 'Weekend Service Attendance: How frequently do you attend weekend worship services at your church?', type: 'radio', options: ['3–4 times a month', '1–2 times a month', 'Rarely'] }
         ]
     },
     {
@@ -87,30 +87,28 @@ const surveyModules = [
         module: 'Community: Your Experience with Church Community',
         desc: 'Evaluating your participation in a local church and how well that community supports and encourages your growth.',
         questions: [
-            { id: 'q43', label: 'Weekend Service Attendance: How frequently do you attend weekend worship services at your church?', type: 'radio', options: ['3–4 times a month', '1–2 times a month', 'Rarely'] },
-            { id: 'q44', label: 'Ministry Serving: How often do you serve in a specific church ministry or volunteer role?', type: 'radio', options: ['Weekly', '1–2 times a month', 'Rarely', 'Never'], triggersServing: true },
-            { id: 'q45', label: 'Small Group Engagement: Do you regularly participate in a small group, Sunday school, or Bible study through your church?', type: 'radio', options: ['Yes', 'No'], triggersSG: true },
-            { id: 'q46', label: 'Serving Through Church: How often do you participate in church-sponsored community service projects?', type: 'freq' },
-            { id: 'q47', label: 'Adult Education Classes: How frequently do you participate in adult education or training classes focused on spiritual topics?', type: 'freq' },
-            { id: 'q48', label: 'Additional Worship Services: Do you regularly attend additional mid-week teaching or worship services beyond the weekend?', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q49', label: 'Church Support for Personal Faith: How satisfied are you with how your church helps you develop a personal relationship with Christ?', type: 'scale16' },
-            { id: 'q50', label: 'Church Support for Bible Knowledge: How satisfied are you with how your church helps you understand the Bible in greater depth?', type: 'scale16' },
-            { id: 'q51', label: 'Spiritual Challenge: Does your church effectively challenge you to take specific next steps in your spiritual growth?', type: 'likert' },
-            { id: 'q52', label: 'Clear Growth Pathway: Does your church provide a clear, understandable pathway to guide your spiritual development?', type: 'likert' }
+            { id: 'q43', label: 'Ministry Serving: How often do you serve in a specific church ministry or volunteer role?', type: 'radio', options: ['Weekly', '1–2 times a month', 'Rarely', 'Never'], triggersServing: true },
+            { id: 'q44', label: 'Small Group Engagement: Do you regularly participate in a small group, Sunday school, or Bible study through your church?', type: 'radio', options: ['Yes', 'No'], triggersSG: true },
+            { id: 'q45', label: 'Serving Through Church: How often do you participate in church-sponsored community service projects?', type: 'freq' },
+            { id: 'q46', label: 'Adult Education Classes: How frequently do you participate in adult education or training classes focused on spiritual topics?', type: 'freq' },
+            { id: 'q47', label: 'Church Support for Personal Faith: How satisfied are you with how your church helps you develop a personal relationship with Christ?', type: 'scale16' },
+            { id: 'q48', label: 'Church Support for Bible Knowledge: How satisfied are you with how your church helps you understand the Bible in greater depth?', type: 'scale16' },
+            { id: 'q49', label: 'Spiritual Challenge: Does your church effectively challenge you to take specific next steps in your spiritual growth?', type: 'likert' },
+            { id: 'q50', label: 'Clear Growth Pathway: Does your church provide a clear, understandable pathway to guide your spiritual development?', type: 'likert' }
         ]
     },
     {
         module: 'Real Talk: Everyday Hurdles, Distractions & Obstacles',
         desc: 'Looking honestly at personal struggles, habits, or emotional burdens that might be slowing you down or making you feel stuck.',
         questions: [
-            { id: 'q53', label: 'Prioritizing Growth over Distractions: Do you struggle with prioritizing your spiritual growth over distractions like television, internet, social media, or shopping?', type: 'likert' },
-            { id: 'q54', label: 'Emotional Issues & Hurts: Are unhealed emotional issues, past hurts, or anger currently impeding your spiritual progress?', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q55', label: 'Addictions & Unhealthy Habits: Are personal addictions or unhealthy coping behaviors creating a barrier to your relationship with God?', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q56', label: 'Inappropriate Relationships: Are you involved in any relationships that pull you away from God or compromise your faith values?', type: 'radio', options: ['Yes', 'No'] },
-            { id: 'q57', label: 'Gossip & Judgmental Attitudes: Do you struggle with gossip or judgmental attitudes toward other people?', type: 'freq' },
-            { id: 'q58', label: 'Hiding & Isolation: Do you frequently feel like you have to hide what you do or feel from God or others?', type: 'freq' },
-            { id: 'q59', label: 'Bitterness & Destructive Thoughts: How frequently do you experience feelings of bitterness or destructive thoughts about yourself or others?', type: 'freq' },
-            { id: 'q60', label: 'Effective Un-Stalling: When you feel spiritually stalled, do you reconnect with God primarily by increasing personal spiritual practices rather than changing external activities?', type: 'likert' }
+            { id: 'q51', label: 'Prioritizing Growth over Distractions: Do you struggle with prioritizing your spiritual growth over distractions like television, internet, social media, or shopping?', type: 'likert' },
+            { id: 'q52', label: 'Emotional Issues & Hurts: Are unhealed emotional issues, past hurts, or anger currently impeding your spiritual progress?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q53', label: 'Addictions & Unhealthy Habits: Are personal addictions or unhealthy coping behaviors creating a barrier to your relationship with God?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q54', label: 'Inappropriate Relationships: Are you involved in any relationships that pull you away from God or compromise your faith values?', type: 'radio', options: ['Yes', 'No'] },
+            { id: 'q55', label: 'Gossip & Judgmental Attitudes: Do you struggle with gossip or judgmental attitudes toward other people?', type: 'freq' },
+            { id: 'q56', label: 'Hiding & Isolation: Do you frequently feel like you have to hide what you do or feel from God or others?', type: 'freq' },
+            { id: 'q57', label: 'Bitterness & Destructive Thoughts: How frequently do you experience feelings of bitterness or destructive thoughts about yourself or others?', type: 'freq' },
+            { id: 'q58', label: 'Effective Un-Stalling: When you feel spiritually stalled, do you reconnect with God primarily by increasing personal spiritual practices rather than changing external activities?', type: 'likert' }
         ]
     }
 ];
