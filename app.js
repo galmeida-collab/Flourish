@@ -101,24 +101,56 @@ let currentModuleIdx = 0;
 let formData = {};
 let localDatabase = JSON.parse(localStorage.getItem('flourish_survey_db') || '[]');
 
-// --- 2. VIEW CONTROLLER ---
+// --- 2. SECURE VIEW CONTROLLER & ADMIN AUTH ---
 function switchView(viewName) {
+    if (viewName === 'dashboard') {
+        // Intercept dashboard access and require admin login prompt
+        document.getElementById('admin-login-modal').classList.remove('hidden');
+        document.getElementById('admin-pass-input').value = '';
+        document.getElementById('admin-error-msg').classList.add('hidden');
+        return;
+    }
+
+    // Standard Survey View Switch
     const surveyView = document.getElementById('view-survey');
     const dashView = document.getElementById('view-dashboard');
     const sBtn = document.getElementById('nav-survey-btn');
     const dBtn = document.getElementById('nav-dash-btn');
 
-    if (viewName === 'survey') {
-        surveyView.classList.remove('hidden');
-        dashView.classList.add('hidden');
-        sBtn.className = "px-3 py-1.5 text-xs font-semibold bg-flourish-50 text-flourish-700 rounded-lg transition border border-flourish-600/20";
-        dBtn.className = "px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-lg transition";
-    } else {
+    surveyView.classList.remove('hidden');
+    dashView.classList.add('hidden');
+    sBtn.className = "px-3 py-1.5 text-xs font-semibold bg-flourish-50 text-flourish-700 rounded-lg transition border border-flourish-600/20";
+    dBtn.className = "px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-lg transition";
+}
+
+function closeAdminLogin() {
+    document.getElementById('admin-login-modal').classList.add('hidden');
+}
+
+function verifyAdminPasscode(event) {
+    event.preventDefault();
+    const inputVal = document.getElementById('admin-pass-input').value;
+    
+    // Set your secure admin password here (e.g., "churchleadership2026")
+    const secureAdminPasscode = "churchleadership2026";
+
+    if (inputVal === secureAdminPasscode) {
+        closeAdminLogin();
+        
+        // Unlock Dashboard View
+        const surveyView = document.getElementById('view-survey');
+        const dashView = document.getElementById('view-dashboard');
+        const sBtn = document.getElementById('nav-survey-btn');
+        const dBtn = document.getElementById('nav-dash-btn');
+
         surveyView.classList.add('hidden');
         dashView.classList.remove('hidden');
         dBtn.className = "px-3 py-1.5 text-xs font-semibold bg-slate-900 text-white rounded-lg transition shadow-sm";
         sBtn.className = "px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 rounded-lg transition";
+        
         renderDashboardMetrics();
+    } else {
+        document.getElementById('admin-error-msg').classList.remove('hidden');
     }
 }
 
