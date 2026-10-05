@@ -3,7 +3,6 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-/* Smooth transitions for interactive state changes */
 input[type="radio"] {
     accent-color: #059669;
 }
